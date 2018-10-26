@@ -29,6 +29,8 @@ export class TableAttendeeComponent implements OnChanges {
   file: File;
   importMsg: string;
   labels : Label[];
+  tempSearchString: string = "";
+  @Input() searchString: string = "";
   constructor(private eventService: EventService, private attendeeService: AttendeeService,
     private loadingService: LoadingBarService) { }
   ngOnInit() {
@@ -40,11 +42,12 @@ export class TableAttendeeComponent implements OnChanges {
     this.initAttendees();
     this.initLabels();
     if (this.event) this.getMaxPage();
+    this.tempSearchString = this.searchString;
   }
 
   initAttendees() {
     this.loadingService.setLoading(true);
-    var ob = this.eventService.firstAttendee(this.event.id, this.limit);
+    var ob = this.eventService.firstAttendee(this.event.id,this.searchString, this.limit);
     this.updateAttendees(ob);
   }
 
@@ -56,17 +59,17 @@ export class TableAttendeeComponent implements OnChanges {
 
   next() {
     this.loadingService.setLoading(true);
-    var ob = this.eventService.nextAttendee(this.event.id, this.limit);
+    var ob = this.eventService.nextAttendee(this.event.id,this.searchString, this.limit);
     this.updateAttendees(ob);
   }
   previous() {
     this.loadingService.setLoading(true);
-    var ob = this.eventService.previousAttendee(this.event.id, this.limit);
+    var ob = this.eventService.previousAttendee(this.event.id,this.searchString, this.limit);
     this.updateAttendees(ob);
   }
   specific(n: number) {
     this.loadingService.setLoading(true);
-    var ob = this.eventService.specificPageAttendee(this.event.id, n, this.limit);
+    var ob = this.eventService.specificPageAttendee(this.event.id,this.searchString, n, this.limit);
     this.updateAttendees(ob);
   }
   private updateAttendees(ob: Observable<Attendee[]>) {
@@ -84,7 +87,7 @@ export class TableAttendeeComponent implements OnChanges {
     );
   }
   getMaxPage() {
-    this.eventService.countAttendees(this.event.id).subscribe(
+    this.eventService.countAttendees(this.event.id,this.searchString).subscribe(
       t => {
         this.collectionSize = t;
       }
@@ -133,5 +136,10 @@ export class TableAttendeeComponent implements OnChanges {
         }
       )
     }
+  }
+
+  search(){
+    this.searchString = this.tempSearchString;
+    this.ngOnChanges(null);
   }
 }

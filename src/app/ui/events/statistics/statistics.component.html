@@ -1,1 +1,2 @@
-<google-chart #cchart [data]="pieChartData"></google-chart>
+<google-chart (chartSelect)='select($event)' [data]="pieChartData"></google-chart>
+<app-table-attendee *ngIf="searchString" [searchString]=searchString [event]=event></app-table-attendee>

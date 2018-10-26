@@ -3,6 +3,7 @@ import { Event } from '../../object/event';
 import { EventService } from '../../event.service';
 import { AttendeeStatistics } from '../../object/attendee-statistics';
 import { LoadingBarService } from '../../header/loading-bar.service';
+import { ChartSelectEvent } from 'ng2-google-charts';
 
 @Component({
   selector: 'app-statistics',
@@ -10,7 +11,7 @@ import { LoadingBarService } from '../../header/loading-bar.service';
   styleUrls: ['./statistics.component.css']
 })
 export class StatisticsComponent implements OnChanges {
-
+  searchString : string;
   @Input() event: Event;
   pieChartData = {
     chartType: 'PieChart',
@@ -27,7 +28,9 @@ export class StatisticsComponent implements OnChanges {
 
   constructor(private eventService: EventService, private loading: LoadingBarService) { }
   ngOnChanges(changes: SimpleChanges): void {
+    
     this.loading.setLoading(true);
+    this.searchString = "";
     this.eventService.statisticAttendee(this.event.id).subscribe(
       next => {
 
@@ -46,6 +49,9 @@ export class StatisticsComponent implements OnChanges {
       }
     );
 
+  }
+  public select(event: ChartSelectEvent) {
+    this.searchString = event.selectedRowValues[0];
   }
 
 }

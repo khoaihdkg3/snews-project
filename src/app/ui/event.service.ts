@@ -54,7 +54,7 @@ export class EventService {
       catchError(this.handleError<Event[]>('getEvents', []))
     );
   }
-  private getAttendees(type: string, eventID: number, limit?: number, pageNum?: number): Observable<Attendee[]> {
+  private getAttendees(type: string, eventID: number, search: string, limit?: number, pageNum?: number): Observable<Attendee[]> {
     var tempPage = this.page;
     if (type === 'previous') {
       tempPage--;
@@ -70,7 +70,11 @@ export class EventService {
       tempLimit = this.limit;
     }
     let url;
-    url = `${this.host}${this.eventPath}/${eventID}/attendees?_page=${tempPage}&_limit=${tempLimit}`;
+    if(search === ""){
+      url = `${this.host}${this.eventPath}/${eventID}/attendees?_page=${tempPage}&_limit=${tempLimit}`;
+    }else{
+      url = `${this.host}${this.eventPath}/${eventID}/attendees/search?_page=${tempPage}&_limit=${tempLimit}&_text=${encodeURI(search)}`;
+    }
     const httpOption = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': this.cookieService.get("token") }) };
     return this.http.get<Attendee[]>(url, httpOption).pipe(
       tap(t => {
@@ -111,18 +115,18 @@ export class EventService {
   }
 
 
-  specificPageAttendee(eventID: number, n: number, limit?: number): Observable<Attendee[]> {
-    return this.getAttendees("specific", eventID, limit, n);
+  specificPageAttendee(eventID: number,search: string, n: number, limit?: number): Observable<Attendee[]> {
+    return this.getAttendees("specific", eventID,search, limit, n);
   }
-  firstAttendee(eventID: number, limit?: number): Observable<Attendee[]> {
+  firstAttendee(eventID: number,search: string, limit?: number): Observable<Attendee[]> {
     this.page = 0;
-    return this.getAttendees("next", eventID, limit);
+    return this.getAttendees("next", eventID,search, limit);
   }
-  nextAttendee(eventID: number, limit?: number): Observable<Attendee[]> {
-    return this.getAttendees("next", eventID, limit);
+  nextAttendee(eventID: number,search: string, limit?: number): Observable<Attendee[]> {
+    return this.getAttendees("next", eventID,search, limit);
   }
-  previousAttendee(eventID: number, limit?: number): Observable<Attendee[]> {
-    return this.getAttendees("previous", eventID, limit);
+  previousAttendee(eventID: number,search: string, limit?: number): Observable<Attendee[]> {
+    return this.getAttendees("previous", eventID,search, limit);
   }
 
   newEvent(event: Event): Observable<Event> {
@@ -167,13 +171,20 @@ export class EventService {
       catchError(this.handleError<Pagination>('getNumberOfEvent'))
     );
   }
-  countAttendees(id: number): Observable<number> {
+  countAttendees(id: number, search: string): Observable<number> {
+    
     const httpOption = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': this.cookieService.get("token") }) };
-    const url = `${this.host}${this.eventPath}/${id}/attendees/count`;
+    let url;
+    if(search === ""){
+      url = `${this.host}${this.eventPath}/${id}/attendees/count`;
+    }else{
+      url = `${this.host}${this.eventPath}/${id}/attendees/count/search?_text=${search}`;
+    }
     return this.http.get<number>(url, httpOption).pipe(
       catchError(this.handleError<number>('countAttendees'))
     );
   }
+
   importAttendee(file: File, eventId: number, name?: string): Observable<Progress> {
     let formData: FormData = new FormData();
     formData.append('file', file, name ? name : file.name);

@@ -79,7 +79,7 @@ export class EventsComponent implements OnInit {
         );
     }
     generateEventRow(e: Event) {
-        this.eventService.countAttendees(e.id).subscribe(
+        this.eventService.countAttendees(e.id, "").subscribe(
             count => e.attendees_count = count
         );
         let row: EventRow = { event: e, checked: false, started: false, ended: false };
