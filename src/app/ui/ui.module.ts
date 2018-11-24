@@ -27,6 +27,10 @@ import { TableAttendeeComponent } from './events/table-attendee/table-attendee.c
 import { MusterComponent } from './events/muster/muster.component';
 import { StatisticsComponent } from './events/statistics/statistics.component';
 import { Ng2GoogleChartsModule } from 'ng2-google-charts';
+import { RecruitmentComponent } from './news/news-middle/recruitment/recruitment.component';
+import { TableRecruitmentComponent } from './dashboard/table-recruitment/table-recruitment.component';
+import { ModalRecruitmentComponent } from './modal-recruitment/modal-recruitment.component';
+import { StatisticsRecruitmentComponent } from './dashboard/statistics-recruitment/statistics-recruitment.component';
 
 @NgModule({
   imports: [
@@ -39,7 +43,7 @@ import { Ng2GoogleChartsModule } from 'ng2-google-charts';
     FroalaViewModule.forRoot(),
     Ng2GoogleChartsModule,
   ],
-  declarations: [LayoutComponent, HeaderComponent, FooterComponent, NewsComponent, EventsComponent, DashboardComponent, PageNotFoundComponent, ModalLoginComponent, NewsMiddleComponent, NewsReadingComponent, TableTopicComponent, TableUserComponent, ModalTopicComponent, TableEventComponent, BannerComponent, ModalUserComponent, ModalEventComponent, ModalAttendeeComponent, TableAttendeeComponent, MusterComponent, StatisticsComponent],
+  declarations: [LayoutComponent, HeaderComponent, FooterComponent, NewsComponent, EventsComponent, DashboardComponent, PageNotFoundComponent, ModalLoginComponent, NewsMiddleComponent, NewsReadingComponent, TableTopicComponent, TableUserComponent, ModalTopicComponent, TableEventComponent, BannerComponent, ModalUserComponent, ModalEventComponent, ModalAttendeeComponent, TableAttendeeComponent, MusterComponent, StatisticsComponent, RecruitmentComponent, TableRecruitmentComponent, ModalRecruitmentComponent, StatisticsRecruitmentComponent],
   exports: [LayoutComponent]
 })
 export class UiModule { }

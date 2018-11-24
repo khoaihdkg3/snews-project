@@ -16,10 +16,6 @@ export class BannerComponent implements OnInit {
     this.getBanner();
   }
   getBanner() {
-    this.topicService.getMiddleBanner().subscribe(
-      banner => {
-        this.banner = banner;
-      }
-    );
+    
   }
 }

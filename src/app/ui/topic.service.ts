@@ -4,7 +4,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { Pagination } from './object/pagination';
-import { Banner } from './object/banner';
 import { CONFIGS } from '../my-config';
 import { Link } from './object/Link';
 import { CookieService } from 'ngx-cookie-service';
@@ -17,7 +16,6 @@ export class TopicService {
   private topicPath = CONFIGS.urlOptions.topicPath;
   private fileUploadPath = CONFIGS.urlOptions.fileUploadPath;
   private pagePath = CONFIGS.urlOptions.pagePath + '?_id=topic';
-  private bannerUrl = 'http://localhost:3000/banners'
   private page: number = 0;
   private limit: number = 7;
   constructor(private http: HttpClient, private cookieService: CookieService) { }
@@ -60,21 +58,6 @@ export class TopicService {
   }
   specificPage(n: number, limit?: number): Observable<Topic[]> {
     return this.getTopics("specific", limit, n);
-  }
-  getMiddleBanner(): Observable<Banner> {
-    return this.getBanner("middle");
-  }
-  getTopBanner(): Observable<Banner> {
-    return this.getBanner("top");
-  }
-  private getBanner(id: string) {
-    const url = `${this.bannerUrl}/${id}`;
-    return this.http.get<Banner>(url).pipe(
-      tap(t => {
-        console.log(`fetched middle banner`);
-      }),
-      catchError(this.handleError<Banner>('getBanner'))
-    );
   }
   newTopic(topic: Topic): Observable<Topic> {
     const httpOption = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': this.cookieService.get("token") }) };

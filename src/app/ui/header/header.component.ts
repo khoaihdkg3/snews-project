@@ -20,7 +20,8 @@ export class HeaderComponent implements OnInit {
   constructor(public loadingService: LoadingBarService,
     private location: Location,
     private userService: UserService,
-    private cookieService: CookieService) { }
+    private cookieService: CookieService,
+    private router: Router) { }
 
   ngOnInit() {
     this.userService.me().subscribe(
@@ -40,6 +41,7 @@ export class HeaderComponent implements OnInit {
       r => {
         this.cookieService.delete("token");
         this.currentUser = undefined;
+        this.router.navigate([''])
       }
     );
   }

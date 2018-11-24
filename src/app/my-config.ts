@@ -8,6 +8,7 @@ var urlOptions = {
     rolePath: '/api/roles',
     userPath: '/api/accounts',
     topicPath: '/api/topics',
+    recruitmentPath : '/api/recruitments',
     fileUploadPath: '/api/files',
     pagePath: '/api/pagination',
     logoutPath: '/api/logout',

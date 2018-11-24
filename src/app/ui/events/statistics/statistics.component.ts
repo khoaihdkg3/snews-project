@@ -1,7 +1,6 @@
-import { Component, OnInit, Input, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
 import { Event } from '../../object/event';
 import { EventService } from '../../event.service';
-import { AttendeeStatistics } from '../../object/attendee-statistics';
 import { LoadingBarService } from '../../header/loading-bar.service';
 import { ChartSelectEvent } from 'ng2-google-charts';
 

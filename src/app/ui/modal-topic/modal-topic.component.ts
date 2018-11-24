@@ -12,7 +12,6 @@ import { TopicService } from '../topic.service';
 export class ModalTopicComponent implements OnInit {
   editorOptions: Object = CONFIGS.editorOptions;
   model: NgbDateStruct;
-  imagePath: string;
   imageUploadMsg: string;
   editResult = 'edit';
   newResult = 'new';

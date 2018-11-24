@@ -1,9 +1,7 @@
 <div class="container news-top">
   <div class="row">
     <div class="col-sm-8">
-
       <div class="row mt-1"></div>
-
       <div class="row row-news pt-1" *ngFor="let topic of topics">
         <div class="col-sm-4 p-0" style="height: 155px;">
           <a routerLink="/reading/{{topic.id}}" class="">
@@ -27,8 +25,9 @@
     </div>
 
 
-    <div class="col-sm-4 may-hide">
-      <app-banner></app-banner>
+    <div class="col-sm-4 may-hide mt-1">
+      <h5>Tin tuyển dụng <span class="badge badge-success">Good job</span></h5>
+      <app-recruitment></app-recruitment>
     </div>
   </div>
 </div>

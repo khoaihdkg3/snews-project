@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TopicService } from '../../topic.service';
 import { Topic } from '../../object/topic';
-import { Pagination } from '../../object/pagination';
-import { Banner } from '../../object/banner';
 import { LoadingBarService } from '../../header/loading-bar.service';
 import { Observable } from 'rxjs';
 
